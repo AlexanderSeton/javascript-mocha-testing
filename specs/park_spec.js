@@ -11,6 +11,9 @@ describe('Park', function() {
     park1 = new Park("Jurassic Park", 2000);
     dinosaur1 = new Dinosaur('t-rex', 'carnivore', 50);
     dinosaur2 = new Dinosaur('velociraptor', 'carnivore', 25);
+    dinosaur3 = new Dinosaur('triceratops', 'herbivore', 34);
+    dinosaur4 = new Dinosaur('stegosauris', 'herbivore', 42);
+    dinosaur5 = new Dinosaur('oviraptor', 'omnivore', 23);
   });
 
   it('should have a name', function () {
@@ -77,6 +80,31 @@ describe('Park', function() {
       const actual = park1.totalRevenueTicketsPerYear();
       assert.strictEqual(actual, 54750000);
     });
+
+  });
+
+  describe("Extensions", function () {
+
+    it("should be able to remove all dinosaurs of a particular species", function () {
+      park1.addDinosaur(dinosaur1);
+      park1.addDinosaur(dinosaur2);
+      park1.addDinosaur(dinosaur3);
+      park1.addDinosaur(dinosaur4);
+      park1.removeAllDinosaursBySpecies("triceratops");
+      const actual = park1.dinosaurs;
+      assert.deepStrictEqual(actual, [dinosaur1, dinosaur2, dinosaur4]);
+    });
+
+    it("should be able to provide an object containing the numnber of dinosaurs of each of the diet types", function () {
+      park1.addDinosaur(dinosaur1);
+      park1.addDinosaur(dinosaur2);
+      park1.addDinosaur(dinosaur3);
+      park1.addDinosaur(dinosaur4);
+      park1.addDinosaur(dinosaur5);
+      const actual = park1.dinosaursByDiet();
+      assert.deepStrictEqual(actual, {"carnivore": 2, "herbivore": 2, "omnivore": 1});
+    });
+
   });
 
 });
